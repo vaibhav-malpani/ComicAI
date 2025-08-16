@@ -1,0 +1,17 @@
+{
+  "comic_id": "high_schoolers_discover_ancien_humorous_20250816_171322",
+  "title": "Comic about High schoolers discover ancient magic.",
+  "theme": "A humorous story about High schoolers discover ancient magic.",
+  "generated_at": "2025-08-16T17:13:51.830184",
+  "panel_count": 4,
+  "generation_params": {
+    "topic": "High schoolers discover ancient magic.",
+    "tone": "humorous",
+    "target_audience": "general",
+    "visual_style": "manga style"
+  },
+  "files": {
+    "script": "output\\comics\\high_schoolers_discover_ancien_humorous_20250816_171322\\script.json",
+    "image": "output\\comics\\high_schoolers_discover_ancien_humorous_20250816_171322\\comic.png"
+  }
+}
