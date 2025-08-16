@@ -41,7 +41,7 @@ Before getting started, make sure you have:
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd daily-comics-generator
+   cd ComicAI
    ```
 
 2. **Set up Python virtual environment:**
@@ -52,6 +52,7 @@ Before getting started, make sure you have:
 
 3. **Install Python dependencies:**
    ```bash
+   cd backend
    pip install -r requirements.txt
    ```
 
@@ -151,7 +152,7 @@ Before getting started, make sure you have:
 
 5. **Open your browser and visit:**
    ```
-   http://localhost:5173
+   http://localhost:3000
    ```
 
 ## 🎨 Using the Web Interface
