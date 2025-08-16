@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { Download, Share, Calendar, User, Palette } from 'lucide-react'
+import { Download, Share, Calendar, User, Palette, Clock } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { getComic, getComicScript } from '../api/comics'
 
@@ -85,6 +85,12 @@ const ComicView = () => {
             <Palette size={16} />
             <span>{comic.generation_params?.visual_style || 'Modern'}</span>
           </div>
+          {comic.processing_time_seconds && (
+            <div className="flex items-center space-x-1">
+              <Clock size={16} />
+              <span>{comic.processing_time_seconds.toFixed(1)}s processing time</span>
+            </div>
+          )}
         </div>
 
         <div className="flex justify-center space-x-4">

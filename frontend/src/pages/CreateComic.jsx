@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { Wand2, Loader } from 'lucide-react'
+import { Wand2, Loader, Clock } from 'lucide-react'
 import { generateComic } from '../api/comics'
 
 const CreateComic = () => {
@@ -13,14 +13,34 @@ const CreateComic = () => {
     target_audience: 'general',
     visual_style: 'modern digital comic'
   })
+  const [startTime, setStartTime] = useState(null)
+  const [elapsedTime, setElapsedTime] = useState(0)
+  const intervalRef = useRef(null)
 
   const generateMutation = useMutation({
     mutationFn: generateComic,
+    onMutate: () => {
+      const now = Date.now()
+      setStartTime(now)
+      setElapsedTime(0)
+
+      // Start timer
+      intervalRef.current = setInterval(() => {
+        setElapsedTime(Date.now() - now)
+      }, 1000)
+    },
     onSuccess: (data) => {
-      toast.success('Comic generated successfully!')
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+      const totalTime = Math.round((Date.now() - startTime) / 1000)
+      toast.success(`Comic generated successfully in ${totalTime}s!`)
       navigate(`/comic/${data.comic_id}`)
     },
     onError: (error) => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
       toast.error(error.response?.data?.detail || 'Failed to generate comic')
     }
   })
@@ -151,11 +171,17 @@ const CreateComic = () => {
         <div className="card bg-blue-50 border border-blue-200">
           <div className="flex items-center space-x-3">
             <div className="loading-spinner"></div>
-            <div>
+            <div className="flex-1">
               <p className="font-medium text-blue-900">Creating your comic...</p>
               <p className="text-sm text-blue-700">
                 This may take a few minutes as we generate the script and artwork.
               </p>
+              <div className="flex items-center space-x-1 mt-2">
+                <Clock size={14} className="text-blue-600" />
+                <span className="text-sm text-blue-600 font-mono">
+                  {Math.floor(elapsedTime / 1000)}s elapsed
+                </span>
+              </div>
             </div>
           </div>
         </div>

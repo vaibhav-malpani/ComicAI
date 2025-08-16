@@ -42,6 +42,11 @@ class ComicGenerationEngine:
         Returns:
             ComicMetadata with generation details and file paths
         """
+        import time
+
+        start_time = time.time()
+        generation_started_at = datetime.now().isoformat()
+
         comic_id = self._generate_comic_id(topic=topic, tone=tone)
         logger.info("🚀 Starting comic generation for: %s (ID: %s)", topic, comic_id)
 
@@ -66,6 +71,13 @@ class ComicGenerationEngine:
                 style_theme=visual_style
             )
 
+            # Calculate processing time
+            end_time = time.time()
+            processing_time_seconds = end_time - start_time
+            generation_completed_at = datetime.now().isoformat()
+
+            logger.info("⏱️ Comic generation took %.2f seconds", processing_time_seconds)
+
             # Step 4: Save outputs and create metadata
             comic_metadata = await self._save_comic_outputs(
                 comic_id=comic_id,
@@ -77,7 +89,10 @@ class ComicGenerationEngine:
                     'tone': tone,
                     'target_audience': target_audience,
                     'visual_style': visual_style
-                }
+                },
+                processing_time_seconds=processing_time_seconds,
+                generation_started_at=generation_started_at,
+                generation_completed_at=generation_completed_at
             )
 
             logger.info("🎉 Comic generation completed successfully: %s", comic_id)
@@ -174,7 +189,10 @@ class ComicGenerationEngine:
 
     async def _save_comic_outputs(self, comic_id: str, script: Dict, 
                                 panels: List[Dict], image_bytes: bytes,
-                                generation_params: Dict) -> ComicMetadata:
+                                generation_params: Dict,
+                                processing_time_seconds: float = None,
+                                generation_started_at: str = None,
+                                generation_completed_at: str = None) -> ComicMetadata:
         """Save comic outputs and return metadata"""
 
         # Create comic-specific directory
@@ -202,7 +220,10 @@ class ComicGenerationEngine:
             files={
                 'script': str(script_path),
                 'image': str(image_path)
-            }
+            },
+            processing_time_seconds=processing_time_seconds,
+            generation_started_at=generation_started_at,
+            generation_completed_at=generation_completed_at
         )
 
         metadata_path = comic_dir / "metadata.json"

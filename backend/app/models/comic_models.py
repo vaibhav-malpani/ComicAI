@@ -45,6 +45,9 @@ class ComicMetadata:
     panel_count: int
     generation_params: Dict[str, Any]
     files: Dict[str, str]  # Contains paths to script and image files
+    processing_time_seconds: Optional[float] = None
+    generation_started_at: Optional[str] = None
+    generation_completed_at: Optional[str] = None
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'ComicMetadata':
@@ -56,7 +59,10 @@ class ComicMetadata:
             generated_at=data['generated_at'],
             panel_count=data['panel_count'],
             generation_params=data['generation_params'],
-            files=data['files']
+            files=data['files'],
+            processing_time_seconds=data.get('processing_time_seconds'),
+            generation_started_at=data.get('generation_started_at'),
+            generation_completed_at=data.get('generation_completed_at')
         )
 
     def to_dict(self) -> Dict[str, Any]:
@@ -68,5 +74,8 @@ class ComicMetadata:
             'generated_at': self.generated_at,
             'panel_count': self.panel_count,
             'generation_params': self.generation_params,
-            'files': self.files
+            'files': self.files,
+            'processing_time_seconds': self.processing_time_seconds,
+            'generation_started_at': self.generation_started_at,
+            'generation_completed_at': self.generation_completed_at
         }
