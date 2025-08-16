@@ -1,0 +1,36 @@
+# FastAPI and ASGI server
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+
+# Google Gen AI SDK (modern, replaces deprecated Vertex AI SDK)
+google-genai>=0.5.0
+google-auth>=2.23.0
+
+# Keep legacy for fallback if needed
+google-cloud-aiplatform>=1.38.0
+
+# Image processing and manipulation
+Pillow>=10.0.0
+opencv-python>=4.8.0
+matplotlib>=3.7.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Web framework and utilities
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Date and time handling
+pytz>=2023.3
+
+# Async support
+aiohttp>=3.9.0
+
+# Logging and monitoring
+structlog>=23.1.0
+
+# Development dependencies
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
