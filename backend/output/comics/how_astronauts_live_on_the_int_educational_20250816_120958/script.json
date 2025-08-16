@@ -1,0 +1,106 @@
+{
+  "title": "Aboard the ISS: A Day in Space",
+  "theme": "Understanding daily life for astronauts on the International Space Station.",
+  "panels": [
+    {
+      "panel_number": 1,
+      "scene_description": "The Hero, Mentor, and Companion stand before a holographic projection of the International Space Station, orbiting Earth.",
+      "characters": [
+        "Hero",
+        "Mentor",
+        "Companion"
+      ],
+      "dialogue": [
+        {
+          "character": "Hero",
+          "text": "Whoa! The International Space Station! But how do astronauts even… live up there?"
+        },
+        {
+          "character": "Mentor",
+          "text": "An excellent question, my boy! It's quite different from life on Earth. Let's take a closer look."
+        },
+        {
+          "character": "Companion",
+          "text": "(Muffled from Hero's pocket) Squeak! Does... does that mean space snacks?"
+        }
+      ],
+      "narrative_text": "The Hero wonders about the realities of life aboard the ISS. The Mentor prepares to explain.",
+      "visual_focus": "Holographic ISS, Earth in background, characters looking up in awe. Hamster peeks from Hero's pocket."
+    },
+    {
+      "panel_number": 2,
+      "scene_description": "Inside the ISS, the characters float in a simulated zero-gravity environment. The Mentor points to an astronaut using bungee cords to exercise on a treadmill.",
+      "characters": [
+        "Hero",
+        "Mentor",
+        "Companion"
+      ],
+      "dialogue": [
+        {
+          "character": "Mentor",
+          "text": "First, they must exercise rigorously! Without gravity, their muscles and bones would weaken. See how she's using the bungee cords?"
+        },
+        {
+          "character": "Hero",
+          "text": "Wow! So, they need to work out every day just to stay healthy? What about eating?"
+        },
+        {
+          "character": "Companion",
+          "text": "Squeak! Food! I hope it's not just space carrots!"
+        }
+      ],
+      "narrative_text": "The Mentor explains the importance of exercise in space. The Companion is concerned about the menu.",
+      "visual_focus": "Interior of ISS, astronaut exercising with bungee cords. Floating food packages are visible. Hamster looks worried."
+    },
+    {
+      "panel_number": 3,
+      "scene_description": "The characters observe astronauts preparing a meal. Food pouches float, and they use straws to drink. The Mentor points to a recycling system.",
+      "characters": [
+        "Hero",
+        "Mentor",
+        "Companion"
+      ],
+      "dialogue": [
+        {
+          "character": "Hero",
+          "text": "They're eating... from pouches? And drinking with straws? That looks tricky!"
+        },
+        {
+          "character": "Mentor",
+          "text": "Indeed! Food is specially prepared to be lightweight and easy to consume in zero gravity. And see that complex system? They recycle water and air to conserve resources. Every drop counts!"
+        },
+        {
+          "character": "Companion",
+          "text": "Squeak! Recycle! Good for the planet... and maybe more room for snacks?"
+        }
+      ],
+      "narrative_text": "The Hero learns about specialized food and resource management in space. The Companion sees a potential benefit.",
+      "visual_focus": "Astronauts eating from pouches, recycling system visible. Hamster looks thoughtful."
+    },
+    {
+      "panel_number": 4,
+      "scene_description": "Back in front of the holographic ISS, the characters are smiling. The Hero holds his staff confidently.",
+      "characters": [
+        "Hero",
+        "Mentor",
+        "Companion"
+      ],
+      "dialogue": [
+        {
+          "character": "Hero",
+          "text": "So, living on the ISS is all about careful planning, constant exercise, and resourcefulness! It's hard work!"
+        },
+        {
+          "character": "Mentor",
+          "text": "Precisely! But the research and discoveries they make are invaluable. They push the boundaries of human knowledge."
+        },
+        {
+          "character": "Companion",
+          "text": "Squeak! Space is hard... but space snacks make it better!"
+        }
+      ],
+      "narrative_text": "The Hero understands the challenges and rewards of life on the ISS. The Mentor is pleased with the lesson.",
+      "visual_focus": "Holographic ISS again, characters smiling. Hamster peeks out, cheeks stuffed. Hero holds staff with determination."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "comic_id": "time_traveling_detective_with__humorous_20250816_171252",
+  "title": "Comic about Time-traveling detective with a cat.",
+  "theme": "A humorous story about Time-traveling detective with a cat.",
+  "generated_at": "2025-08-16T17:13:20.396930",
+  "panel_count": 4,
+  "generation_params": {
+    "topic": "Time-traveling detective with a cat.",
+    "tone": "humorous",
+    "target_audience": "general",
+    "visual_style": "manga style"
+  },
+  "files": {
+    "script": "output\\comics\\time_traveling_detective_with__humorous_20250816_171252\\script.json",
+    "image": "output\\comics\\time_traveling_detective_with__humorous_20250816_171252\\comic.png"
+  }
+}

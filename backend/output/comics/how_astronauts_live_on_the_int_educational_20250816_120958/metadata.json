@@ -1,0 +1,17 @@
+{
+  "comic_id": "how_astronauts_live_on_the_int_educational_20250816_120958",
+  "generated_at": "2025-08-16T12:10:50.583698",
+  "title": "Aboard the ISS: A Day in Space",
+  "theme": "Understanding daily life for astronauts on the International Space Station.",
+  "generation_params": {
+    "topic": "How astronauts live on the International Space Station",
+    "tone": "educational",
+    "target_audience": "kids",
+    "visual_style": "bright colorful cartoon style"
+  },
+  "panel_count": 4,
+  "files": {
+    "script": "output\\comics\\how_astronauts_live_on_the_int_educational_20250816_120958\\script.json",
+    "image": "output\\comics\\how_astronauts_live_on_the_int_educational_20250816_120958\\comic.png"
+  }
+}

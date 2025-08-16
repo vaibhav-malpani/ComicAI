@@ -1,0 +1,17 @@
+{
+  "comic_id": "seasonal_migration_patterns_of_inspirational_20250816_130215",
+  "generated_at": "2025-08-16T13:03:05.353290",
+  "title": "The Great Avian Journey",
+  "theme": "Understanding Seasonal Bird Migration",
+  "generation_params": {
+    "topic": "Seasonal migration patterns of birds",
+    "tone": "inspirational",
+    "target_audience": "general",
+    "visual_style": "hand-drawn illustration"
+  },
+  "panel_count": 4,
+  "files": {
+    "script": "output\\comics\\seasonal_migration_patterns_of_inspirational_20250816_130215\\script.json",
+    "image": "output\\comics\\seasonal_migration_patterns_of_inspirational_20250816_130215\\comic.png"
+  }
+}

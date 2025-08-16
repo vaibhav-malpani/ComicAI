@@ -1,0 +1,17 @@
+{
+  "comic_id": "daily_comic_20250816_115419",
+  "generated_at": "2025-08-16T11:55:10.203852",
+  "title": "The Great Avian Migration",
+  "theme": "Understanding bird migration patterns through observation and wisdom.",
+  "generation_params": {
+    "topic": "Seasonal migration patterns of birds",
+    "tone": "inspirational",
+    "target_audience": "general",
+    "visual_style": "hand-drawn illustration"
+  },
+  "panel_count": 4,
+  "files": {
+    "script": "output\\comics\\daily_comic_20250816_115419\\script.json",
+    "image": "output\\comics\\daily_comic_20250816_115419\\comic.png"
+  }
+}
