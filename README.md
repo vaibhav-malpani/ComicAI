@@ -2,6 +2,78 @@
 
 A full-stack web application that automatically generates comic strips using Google's Gemini AI for storytelling and Imagen for visual creation. Transform any topic into engaging visual comics with customizable tones and styles through an intuitive web interface.
 
+# Examples
+
+Explore the incredible range of comics you can create with ComicsAI! From educational content to hilarious adventures, each example showcases different tones, audiences, and creative possibilities.
+
+## 📚 Educational Comics
+
+### "How Astronauts Live on the International Space Station"
+**Tone:** Educational | **Audience:** General
+![Astronaut Life Comic](backend/output/comics/how_astronauts_live_on_the_int_educational_20250816_120958/comic.png)
+
+Transform complex space science into digestible visual learning! This educational comic breaks down life in zero gravity, showing daily routines, eating habits, and scientific work aboard the ISS. Perfect for classrooms or curious minds of all ages.
+
+## 🌟 Inspirational Comics
+
+### "Seasonal Migration Patterns of Birds"
+**Tone:** Inspirational | **Audience:** General
+![Bird Migration Comic](backend/output/comics/seasonal_migration_patterns_of_inspirational_20250816_130215/comic.png)
+
+Nature's most incredible journey told through inspiring visuals! This comic transforms scientific facts about bird migration into an uplifting story about perseverance, navigation, and the wonders of the natural world.
+
+## 💡 What Makes These Examples Special?
+
+### 🎯 **Diverse Topics**
+From robotics to space exploration, cosmic entities to environmental heroes - these examples showcase the unlimited creative potential of your imagination combined with AI.
+
+### 🎭 **Tone Mastery**
+Each comic perfectly captures its intended tone:
+- **Humorous**: Light-hearted, accessible, and entertaining
+- **Educational**: Informative yet engaging, perfect for learning
+- **Inspirational**: Uplifting and motivational storytelling
+
+### 🎨 **Visual Excellence**
+Notice how each comic features:
+- **Consistent art style** throughout panels
+- **Clear, readable dialogue** integrated seamlessly
+- **Expressive characters** that convey emotion
+- **Dynamic compositions** that guide the reader's eye
+
+### 📖 **Story Structure**
+Every example demonstrates solid comic storytelling:
+- **Setup**: Introducing characters and concepts
+- **Development**: Building the narrative or educational content  
+- **Payoff**: Satisfying conclusion with humor, learning, or inspiration
+
+## 🚀 Try These Prompts Next!
+
+Inspired by these examples? Here are some prompt ideas to get you started:
+
+### Educational Series
+- "How photosynthesis works, explained by talking trees"
+- "The journey of a plastic bottle through recycling"
+- "Ancient Roman engineering marvels in modern times"
+
+### Humorous Adventures  
+- "A vampire trying to use modern dating apps"
+- "Office supplies come to life during a late-night work session"
+- "A time traveler gets confused by modern technology"
+
+### Inspirational Stories
+- "A young artist overcoming creative block"
+- "The story of how small actions can change the world"
+- "Learning to embrace failure as a stepping stone to success"
+
+## 🎪 Mix and Match
+
+The real magic happens when you experiment with different combinations:
+- **Educational + Humorous**: "Quantum physics explained by confused cats"
+- **Inspirational + Technical**: "A coding bootcamp graduate's journey to their first job"
+- **Dramatic + Educational**: "The race to develop vaccines during a pandemic"
+
+Remember: every example started with a simple idea and a click of the "Generate Comic" button. Your next masterpiece is just a prompt away!
+
 ## 🚀 Tech Stack
 
 ### Backend
