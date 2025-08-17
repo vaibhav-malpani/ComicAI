@@ -6,6 +6,14 @@ A full-stack web application that automatically generates comic strips using Goo
 
 Explore the incredible range of comics you can create with ComicsAI! From educational content to hilarious adventures, each example showcases different tones, audiences, and creative possibilities.
 
+## 🤣 Humorous Comics
+
+### "The Great Halloween Pie Heist"
+**Tone:** Humorous | **Audience:** Kids
+![Detective Halloween Comic](backend/output/comics/detectives_solving_mysteries_d_humorous_20250817_192959/comic.png)
+
+Join two bumbling detectives as they investigate the most delicious crime of the century - someone has stolen all the Halloween pies! Watch as our heroic duo follows candy wrapper clues, interviews costumed suspects, and uses their "expert" detective skills to solve this spooky-silly mystery. With plenty of Halloween hijinks and laugh-out-loud moments, this comic proves that sometimes the best mysteries are the sweetest ones to solve!
+
 ## 📚 Educational Comics
 
 ### "How Astronauts Live on the International Space Station"
