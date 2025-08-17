@@ -1,4 +1,4 @@
-# Daily Comics Generator
+# Comics Generator
 
 A full-stack web application that automatically generates comic strips using Google's Gemini AI for storytelling and Imagen for visual creation. Transform any topic into engaging visual comics with customizable tones and styles through an intuitive web interface.
 
@@ -41,7 +41,7 @@ Before getting started, make sure you have:
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd daily-comics-generator
+   cd ComicAI
    ```
 
 2. **Set up Python virtual environment:**
@@ -202,7 +202,7 @@ Create meaningful content:
 ## 🤝 Community & Sharing
 
 ### Share Your Creations
-- **Social Media**: Tag us with `#DailyComicsAI` to showcase your best comics
+- **Social Media**: Tag us with `#ComicsAI` to showcase your best comics
 - **Community Gallery**: Submit standout comics to our featured gallery
 - **Educational Use**: Teachers and educators - we'd love to see classroom applications!
 
@@ -253,4 +253,4 @@ Your next great comic is just an idea away. Whether it's explaining quantum phys
 
 ---
 
-**[⬆ Back to Top](#daily-comics-generator)** | **[🎨 Start Creating](http://localhost:3000)**
+**[⬆ Back to Top](#comics-generator)** | **[🎨 Start Creating](http://localhost:3000)**
