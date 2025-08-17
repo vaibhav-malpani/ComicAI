@@ -418,15 +418,21 @@ class VideoGenerationService:
             if 'scene_description' in panel:
                 prompt_parts.append(f"Scene: {panel['scene_description']}")
 
-            # Add dialogue for context
+            # Add dialogue with explicit character-to-speech mapping
             if 'dialogue' in panel and panel['dialogue']:
                 dialogue_parts = []
+                speaking_instructions = []
                 for dialogue in panel['dialogue']:
                     if isinstance(dialogue, dict) and 'text' in dialogue:
                         character = dialogue.get('character', 'Character')
-                        dialogue_parts.append(f"{character}: '{dialogue['text']}'")
+                        text = dialogue['text']
+                        dialogue_parts.append(f"{character}: '{text}'")
+                        # Add explicit instruction for who should be speaking
+                        speaking_instructions.append(f"CRITICAL: The character {character} must be clearly shown speaking the words '{text}' - show {character} with mouth movements, gestures, and body language indicating they are the active speaker for this specific dialogue")
+
                 if dialogue_parts:
-                    prompt_parts.append("Dialogue: " + "; ".join(dialogue_parts))
+                    prompt_parts.append("Dialogue with CHARACTER-TO-SPEECH MAPPING: " + "; ".join(dialogue_parts))
+                    prompt_parts.append("SPEAKING INSTRUCTIONS: " + ". ".join(speaking_instructions))
 
             # Add visual focus if available
             if 'visual_focus' in panel:
@@ -441,12 +447,18 @@ class VideoGenerationService:
 
 CRITICAL: All characters MUST have the exact same appearance, facial features, clothing, and proportions as they would have in the previous panels of this comic series. Character consistency is absolutely essential.
 
+DIALOGUE REQUIREMENT: If dialogue is present, the EXACT character specified in the dialogue mapping above MUST be shown speaking their assigned lines. Show clear visual indicators of who is speaking:
+- Speaking character should have mouth movements matching their dialogue
+- Speaking character should have appropriate gestures and body language
+- Non-speaking characters should have listening poses/expressions
+- Camera should focus appropriately to show the speaker clearly
+
 Style: {style_instruction} with dynamic camera movements and smooth transitions. 
 Include vibrant colors, dramatic lighting, expressive character animations, and comic book visual effects.
 The video should feel cinematic and capture the specific mood and action of this single panel.
 Make it visually stunning with professional animation quality while maintaining perfect character consistency throughout the series.
 
-IMPORTANT: Ensure characters look identical to how they appeared in previous panels - same faces, same clothing, same body proportions, same distinctive features."""
+FINAL REMINDER: Ensure characters look identical to how they appeared in previous panels AND that the correct character speaks the correct dialogue as specified above."""
 
             return prompt
 
