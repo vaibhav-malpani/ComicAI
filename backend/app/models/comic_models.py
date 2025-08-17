@@ -48,6 +48,12 @@ class ComicMetadata:
     processing_time_seconds: Optional[float] = None
     generation_started_at: Optional[str] = None
     generation_completed_at: Optional[str] = None
+    video_url: Optional[str] = None
+    video_status: Optional[str] = None  # 'generating', 'completed', 'failed'
+    video_generated_at: Optional[str] = None
+    video_processing_time_seconds: Optional[float] = None
+    panel_video_uris: Optional[List[str]] = None  # Array of panel video URIs
+    panel_image_paths: Optional[List[str]] = None  # Array of individual panel image paths
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'ComicMetadata':
@@ -62,7 +68,13 @@ class ComicMetadata:
             files=data['files'],
             processing_time_seconds=data.get('processing_time_seconds'),
             generation_started_at=data.get('generation_started_at'),
-            generation_completed_at=data.get('generation_completed_at')
+            generation_completed_at=data.get('generation_completed_at'),
+            video_url=data.get('video_url'),
+            video_status=data.get('video_status'),
+            video_generated_at=data.get('video_generated_at'),
+            video_processing_time_seconds=data.get('video_processing_time_seconds'),
+            panel_video_uris=data.get('panel_video_uris'),
+            panel_image_paths=data.get('panel_image_paths')
         )
 
     def to_dict(self) -> Dict[str, Any]:
@@ -77,5 +89,11 @@ class ComicMetadata:
             'files': self.files,
             'processing_time_seconds': self.processing_time_seconds,
             'generation_started_at': self.generation_started_at,
-            'generation_completed_at': self.generation_completed_at
+            'generation_completed_at': self.generation_completed_at,
+            'video_url': self.video_url,
+            'video_status': self.video_status,
+            'video_generated_at': self.video_generated_at,
+            'video_processing_time_seconds': self.video_processing_time_seconds,
+            'panel_video_uris': self.panel_video_uris,
+            'panel_image_paths': self.panel_image_paths
         }

@@ -1,14 +1,16 @@
 import { useParams, Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { Download, Share, Calendar, User, Palette, Clock, ArrowLeft, Heart, BookOpen, Zap, Star, Copy, Facebook, Twitter, Eye } from 'lucide-react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Download, Share, Calendar, User, Palette, Clock, ArrowLeft, Heart, BookOpen, Zap, Star, Copy, Facebook, Twitter, Eye, Video, Play, Loader, AlertCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { useState } from 'react'
-import { getComic, getComicScript } from '../api/comics'
+import { useState, useEffect } from 'react'
+import { getComic, getComicScript, generateVideo } from '../api/comics'
 
 const ComicView = () => {
   const { id } = useParams()
   const [isLiked, setIsLiked] = useState(false)
   const [showShareMenu, setShowShareMenu] = useState(false)
+  const [videoStatus, setVideoStatus] = useState(null)
+  const queryClient = useQueryClient()
 
   const { data: comic, isLoading: comicLoading } = useQuery({
     queryKey: ['comic', id],
@@ -21,6 +23,34 @@ const ComicView = () => {
     queryFn: () => getComicScript(id),
     enabled: !!id,
   })
+
+  // Video generation mutation
+  const videoGenerationMutation = useMutation({
+    mutationFn: () => generateVideo(id),
+    onSuccess: (data) => {
+      if (data.status === 'completed') {
+        toast.success('Video generated successfully! 🎉')
+        setVideoStatus('completed')
+        // Refresh comic data to get updated video info
+        queryClient.invalidateQueries(['comic', id])
+      } else {
+        toast.error('Video generation failed 😞')
+        setVideoStatus('failed')
+      }
+    },
+    onError: (error) => {
+      toast.error('Failed to generate video 😞')
+      console.error('Video generation error:', error)
+      setVideoStatus('failed')
+    }
+  })
+
+  // Initialize video status from comic data
+  useEffect(() => {
+    if (comic) {
+      setVideoStatus(comic.video_status)
+    }
+  }, [comic])
 
   const handleDownload = () => {
     const link = document.createElement('a')
@@ -257,6 +287,116 @@ const ComicView = () => {
               💾 Save Comic
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Video Section */}
+      <div className="card max-w-4xl mx-auto">
+        <div className="text-center space-y-6">
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <Video className="text-purple-500" size={32} />
+            <h2 className="text-3xl font-heading font-bold gradient-text">
+              AI Video Generation
+            </h2>
+          </div>
+
+          {/* Video Player or Generation UI */}
+          {comic?.video_url && comic?.video_status === 'completed' ? (
+            <div className="space-y-4">
+              <div className="relative max-w-2xl mx-auto">
+                <video 
+                  controls 
+                  className="w-full rounded-2xl shadow-2xl"
+                  poster="/api/comics/${id}/image"
+                >
+                  <source src={comic.video_url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p className="text-gray-600">
+                Generated on {new Date(comic.video_generated_at).toLocaleDateString()} 
+                {comic.video_processing_time_seconds && 
+                  ` in ${comic.video_processing_time_seconds.toFixed(1)}s`
+                }
+              </p>
+            </div>
+          ) : videoGenerationMutation.isLoading ? (
+            <div className="space-y-4">
+              <div className="flex items-center justify-center space-x-3 p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl border-2 border-purple-200">
+                <Loader className="animate-spin text-purple-500" size={32} />
+                <div className="text-left">
+                  <h4 className="text-xl font-semibold text-purple-800">
+                    Creating Your Video...
+                  </h4>
+                  <p className="text-purple-600">
+                    Using AI magic to bring your comic to life! ✨
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-500">
+                Generating 8-second videos for each panel, then joining them together. This may take 3-5 minutes depending on the number of panels.
+              </p>
+            </div>
+          ) : videoStatus === 'failed' ? (
+            <div className="space-y-4">
+              <div className="flex items-center justify-center space-x-3 p-8 bg-red-50 rounded-2xl border-2 border-red-200">
+                <AlertCircle className="text-red-500" size={32} />
+                <div className="text-left">
+                  <h4 className="text-xl font-semibold text-red-800">
+                    Video Generation Failed
+                  </h4>
+                  <p className="text-red-600">
+                    Something went wrong. Please try again.
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => videoGenerationMutation.mutate()}
+                disabled={videoGenerationMutation.isLoading}
+                className="btn-primary"
+              >
+                <Video size={20} className="mr-2" />
+                Try Again
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl border-2 border-purple-200">
+                <div className="space-y-4">
+                  <div className="w-24 h-24 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Play className="text-white" size={40} />
+                  </div>
+                  <h4 className="text-2xl font-semibold text-purple-800">
+                    Transform Your Comic Into Video!
+                  </h4>
+                  <p className="text-purple-600 max-w-md mx-auto">
+                    Use AI to create an amazing video with 8 seconds per panel, then joined together into one complete story with Veo 3 technology.
+                  </p>
+                </div>
+              </div>
+
+              <button 
+                onClick={() => videoGenerationMutation.mutate()}
+                disabled={videoGenerationMutation.isLoading}
+                className="btn-primary px-8 py-4 text-lg group relative overflow-hidden"
+              >
+                <div className="flex items-center space-x-3">
+                  {videoGenerationMutation.isLoading ? (
+                    <Loader className="animate-spin" size={24} />
+                  ) : (
+                    <Video size={24} className="group-hover:scale-110 transition-transform duration-300" />
+                  )}
+                  <span>
+                    {videoGenerationMutation.isLoading ? 'Starting Generation...' : 'Generate Video'}
+                  </span>
+                </div>
+              </button>
+
+              <p className="text-sm text-gray-500 max-w-md mx-auto">
+                Powered by Google Veo 3 AI. Video generation typically takes 1-3 minutes and creates high-quality animated content.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 

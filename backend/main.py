@@ -7,6 +7,7 @@ from typing import List, Optional, Dict, Any
 import asyncio
 import os
 import json
+import time
 from pathlib import Path
 import logging
 from datetime import datetime
@@ -209,6 +210,103 @@ async def get_comic_script(comic_id: str):
     except Exception as e:
         logger.error(f"Failed to get comic script {comic_id}: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to get script")
+
+@app.post("/api/comics/{comic_id}/generate-video")
+async def generate_comic_video(comic_id: str):
+    """Generate video from comic script using Veo 3 - synchronous operation"""
+    try:
+        # Import video service here to avoid circular imports
+        from app.services.video_service import VideoGenerationService
+
+        # Get comic metadata and script
+        comics_metadata = comic_engine.list_generated_comics()
+        comic = next((c for c in comics_metadata if c.comic_id == comic_id), None)
+
+        if not comic:
+            raise HTTPException(status_code=404, detail="Comic not found")
+
+        # Check if video already exists
+        if comic.video_status == "completed" and comic.video_url:
+            return {
+                "message": "Video already exists", 
+                "status": "completed",
+                "video_url": comic.video_url,
+                "generated_at": comic.video_generated_at,
+                "processing_time_seconds": comic.video_processing_time_seconds
+            }
+
+        # Get comic script
+        script_path = Path(comic.files["script"])
+        if not script_path.exists():
+            raise HTTPException(status_code=404, detail="Script file not found")
+
+        with open(script_path, 'r', encoding='utf-8') as f:
+            script = json.load(f)
+
+        # Update status to generating
+        comic.video_status = "generating"
+        comic_engine.update_comic_metadata(comic)
+
+        try:
+            # Generate video synchronously
+            video_service = VideoGenerationService()
+            start_time = time.time()
+            logger.info(f"Starting synchronous video generation for comic {comic_id}")
+
+            video_result = await video_service.generate_video_from_script(script, comic.title, comic_id)
+
+            processing_time = time.time() - start_time
+
+            if video_result and isinstance(video_result, dict):
+                final_video_path = video_result.get('final_video_path')
+                panel_video_uris = video_result.get('panel_video_uris', [])
+
+                if final_video_path:
+                    # Video is already in the comic directory, no need to move
+                    # Update comic metadata with video information
+                    comic.video_url = final_video_path
+                    comic.video_status = "completed"
+                    comic.video_generated_at = datetime.now().isoformat()
+                    comic.video_processing_time_seconds = processing_time
+
+                    # Store panel video URIs in metadata (new field)
+                    comic.panel_video_uris = panel_video_uris
+
+                    # Update files dict to include video
+                    comic.files["video"] = final_video_path
+
+                    comic_engine.update_comic_metadata(comic)
+
+                    logger.info(f"Video generated successfully for comic {comic_id} in {processing_time:.2f}s")
+
+                    return {
+                        "message": "Video generated successfully", 
+                        "status": "completed",
+                        "video_url": final_video_path,
+                        "panel_video_uris": panel_video_uris,
+                        "generated_at": comic.video_generated_at,
+                        "processing_time_seconds": processing_time
+                    }
+                else:
+                    comic.video_status = "failed"
+                    comic_engine.update_comic_metadata(comic)
+                    raise HTTPException(status_code=500, detail="Video generation failed - no final video path")
+            else:
+                comic.video_status = "failed"
+                comic_engine.update_comic_metadata(comic)
+                raise HTTPException(status_code=500, detail="Video generation failed - no video result returned")
+
+        except Exception as e:
+            logger.error(f"Video generation failed for comic {comic_id}: {str(e)}")
+            comic.video_status = "failed"
+            comic_engine.update_comic_metadata(comic)
+            raise HTTPException(status_code=500, detail=f"Video generation failed: {str(e)}")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to generate video for {comic_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to generate video")
 
 # Mount static files for frontend
 static_path = Path(__file__).parent / "static"

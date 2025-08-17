@@ -34,3 +34,9 @@ export const getComicScript = async (id) => {
   const response = await api.get(`/comics/${id}/script`)
   return response.data
 }
+
+// Video generation API functions
+export const generateVideo = async (comicId) => {
+  const response = await api.post(`/comics/${comicId}/generate-video`)
+  return response.data
+}

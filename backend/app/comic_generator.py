@@ -68,7 +68,8 @@ class ComicGenerationEngine:
             logger.info("🎨 Generating comic artwork...")
             comic_image_bytes = await self.artwork_service.generate_complete_comic(
                 panels=validated_panels,
-                style_theme=visual_style
+                style_theme=visual_style,
+                comic_id=comic_id
             )
 
             # Calculate processing time
@@ -148,20 +149,25 @@ class ComicGenerationEngine:
         """List all generated comics with their metadata"""
         comics = []
 
-        for comic_dir in self.output_dir.iterdir():
-            if comic_dir.is_dir():
-                metadata_file = comic_dir / "metadata.json"
-                if metadata_file.exists():
-                    try:
-                        with open(metadata_file, 'r', encoding='utf-8') as f:
-                            metadata_dict = json.load(f)
-                            comics.append(ComicMetadata.from_dict(metadata_dict))
-                    except Exception as e:
-                        logger.warning("Could not read metadata for %s: %s", comic_dir.name, str(e))
+        try:
+            for comic_dir in self.output_dir.iterdir():
+                if comic_dir.is_dir():
+                    metadata_file = comic_dir / "metadata.json"
+                    if metadata_file.exists():
+                        try:
+                            with open(metadata_file, 'r', encoding='utf-8') as f:
+                                metadata_dict = json.load(f)
+                                comics.append(ComicMetadata.from_dict(metadata_dict))
+                        except Exception as e:
+                            logger.warning("Could not read metadata for %s: %s", comic_dir.name, str(e))
 
-        # Sort by generation time (newest first)
-        comics.sort(key=lambda x: x.generated_at, reverse=True)
-        return comics
+            # Sort by generation time (newest first)
+            comics.sort(key=lambda x: x.generated_at, reverse=True)
+            return comics
+
+        except Exception as e:
+            logger.error(f"Failed to list generated comics: {str(e)}")
+            return []
 
     def _validate_panels(self, panels: List[Dict]) -> List[Dict]:
         """Validate and fix panel data for artwork generation"""
@@ -187,7 +193,7 @@ class ComicGenerationEngine:
 
         return validated_panels
 
-    async def _save_comic_outputs(self, comic_id: str, script: Dict, 
+    async def _save_comic_outputs(self, comic_id: str, script: Dict,
                                 panels: List[Dict], image_bytes: bytes,
                                 generation_params: Dict,
                                 processing_time_seconds: float = None,
@@ -209,6 +215,13 @@ class ComicGenerationEngine:
         with open(image_path, 'wb') as f:
             f.write(image_bytes)
 
+        # Create panel image paths list
+        panel_image_paths = []
+        for i in range(len(panels)):
+            panel_image_path = comic_dir / f"panel_{i+1}_image.png"
+            if panel_image_path.exists():
+                panel_image_paths.append(str(panel_image_path))
+
         # Create and save metadata
         metadata = ComicMetadata(
             comic_id=comic_id,
@@ -223,7 +236,8 @@ class ComicGenerationEngine:
             },
             processing_time_seconds=processing_time_seconds,
             generation_started_at=generation_started_at,
-            generation_completed_at=generation_completed_at
+            generation_completed_at=generation_completed_at,
+            panel_image_paths=panel_image_paths
         )
 
         metadata_path = comic_dir / "metadata.json"
@@ -231,6 +245,21 @@ class ComicGenerationEngine:
             json.dump(metadata.to_dict(), f, indent=2, ensure_ascii=False)
 
         return metadata
+
+    def update_comic_metadata(self, comic_metadata: ComicMetadata) -> None:
+        """Update comic metadata file"""
+        try:
+            comic_dir = self.output_dir / comic_metadata.comic_id
+            metadata_file = comic_dir / "metadata.json"
+
+            with open(metadata_file, 'w', encoding='utf-8') as f:
+                json.dump(comic_metadata.to_dict(), f, indent=2, ensure_ascii=False)
+
+            logger.info(f"Updated metadata for comic {comic_metadata.comic_id}")
+
+        except Exception as e:
+            logger.error(f"Failed to update comic metadata {comic_metadata.comic_id}: {str(e)}")
+            raise
 
     def _generate_comic_id(self, topic: str = "", tone: str = "general") -> str:
         """Generate a unique ID for the comic based on input parameters"""

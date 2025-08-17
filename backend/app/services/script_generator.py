@@ -45,11 +45,11 @@ class ScriptGeneratorService:
             response = self.client.models.generate_content(
                 model=self.model,
                 contents=prompt,
-                config=genai.GenerateContentConfig(
-                    temperature=config.gemini.temperature,
-                    max_output_tokens=config.gemini.max_tokens,
-                    response_mime_type="application/json"
-                )
+                config={
+                    "temperature": config.gemini.temperature,
+                    "max_output_tokens":config.gemini.max_tokens,
+                    "response_mime_type":"application/json"
+                }
             )
 
             # Parse the JSON response

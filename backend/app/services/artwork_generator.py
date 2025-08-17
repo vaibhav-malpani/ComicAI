@@ -8,6 +8,9 @@ from typing import List, Dict, Optional
 import io
 from PIL import Image, ImageDraw, ImageFont
 import logging
+
+from pympler import panels
+
 from ..core.config import config
 import base64
 
@@ -70,13 +73,15 @@ class ArtworkGeneratorService:
             return self._create_visual_comic_panel(safe_panel, "fallback comic panel")
 
     async def generate_complete_comic(self, panels: List[Dict],
-                                    style_theme: str = "modern digital comic") -> bytes:
+                                    style_theme: str = "modern digital comic",
+                                    comic_id: str = None) -> bytes:
         """
         Generate complete comic with all panels
 
         Args:
             panels: List of panel dictionaries
             style_theme: Overall visual style theme
+            comic_id: Comic ID for saving individual panel images
 
         Returns:
             Complete comic image as bytes
@@ -102,6 +107,12 @@ class ArtworkGeneratorService:
                 panel_bytes = await self.generate_panel_artwork(panel, style_theme)
                 panel_image = Image.open(io.BytesIO(panel_bytes))
                 panel_images.append(panel_image)
+
+                # Save individual panel image if comic_id is provided
+                if comic_id:
+                    self._save_panel_image(panel_bytes, i+1, comic_id)
+                    logger.info(f"Attempting to save panel {i+1} image with comic_id: {comic_id}")
+
                 logger.info(f"✅ Panel {i+1}/{len(panels)} completed")
             except Exception as e:
                 logger.error(f"❌ Failed to generate panel {i+1}: {e}")
@@ -195,6 +206,44 @@ class ArtworkGeneratorService:
         except Exception as e:
             logger.error(f"❌ Image generation failed with {self.image_model}: {e}")
             raise
+
+    def _save_panel_image(self, panel_bytes: bytes, panel_number: int, comic_id: str) -> None:
+        """
+        Save individual panel image to comic directory
+
+        Args:
+            panel_bytes: Panel image bytes
+            panel_number: Panel number for filename
+            comic_id: Comic ID for directory location
+        """
+        try:
+            from pathlib import Path
+
+            logger.info(f"Saving panel {panel_number} image for comic_id: {comic_id}")
+            logger.info(f"Panel bytes length: {len(panel_bytes) if panel_bytes else 0}")
+
+            # Create path to comic directory (same directory as script.json)
+            comic_dir = Path("output") / "comics" / comic_id
+            comic_dir = comic_dir.resolve()
+            comic_dir.mkdir(parents=True, exist_ok=True)
+
+            logger.info(f"Comic directory: {comic_dir}")
+
+            # Save panel image
+            panel_filename = f"panel_{panel_number}_image.png"
+            panel_path = comic_dir / panel_filename
+
+            logger.info(f"Saving to path: {panel_path}")
+
+            with open(panel_path, 'wb') as f:
+                f.write(panel_bytes)
+
+            logger.info(f"✅ Successfully saved panel {panel_number} image to: {panel_path}")
+
+        except Exception as e:
+            logger.error(f"❌ Failed to save panel {panel_number} image: {str(e)}")
+            import traceback
+            traceback.print_exc()
 
     def _create_visual_comic_panel(self, panel: Dict, prompt: str) -> bytes:
         """Create a visually appealing comic panel with text and graphics"""

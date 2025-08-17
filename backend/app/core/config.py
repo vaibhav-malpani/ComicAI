@@ -53,11 +53,11 @@ class ComicConfig:
         """Initialize example characters if not provided"""
         if self.example_characters is None:
             self.example_characters = {
-                "Lucas": "A young adventurer with short brown hair, green eyes, wearing a blue tunic and brown leather boots. Always has a determined expression and carries a wooden staff.",
-                "Merlin": "An elderly wizard with long white beard, wise eyes, purple robes with star patterns, and a tall pointed hat. Walks with a gnarled wooden staff.",
-                "Rhino": "A small, fluffy golden-brown hamster with bright black eyes, chubby cheeks often stuffed with food, and tiny pink paws. Wears a tiny blue vest with silver buttons and often perches on the hero's shoulder or rides in their shirt pocket.",
-                "Crimsonscythe": "A tall figure in dark crimson armor with burning yellow eyes visible through the helmet visor. Black cape and carries a massive curved scythe wreathed in hellfire.",
-                "Martha": "A plump, cheerful merchant with curly gray hair, rosy cheeks, wearing a green apron over brown clothes. Always smiling and welcoming."
+                "Hero": "Named Lukas, A young adventurer with short brown hair, green eyes, wearing a blue tunic and brown leather boots. Always has a determined expression and carries a wooden staff.",
+                "Mentor": "Named Merlin, An elderly wizard with long white beard, wise eyes, purple robes with star patterns, and a tall pointed hat. Walks with a gnarled wooden staff.",
+                "companion": "Named pip, A small, fluffy golden-brown hamster with bright black eyes, chubby cheeks often stuffed with food, and tiny pink paws. Wears a tiny blue vest with silver buttons and often perches on the hero's shoulder or rides in their shirt pocket.",
+                "Villan": "Named Crimsonscythe, A tall figure in dark crimson armor with burning yellow eyes visible through the helmet visor. Black cape and carries a massive curved scythe wreathed in hellfire.",
+                "Shopkeeper": "Named Martha, A plump, cheerful merchant with curly gray hair, rosy cheeks, wearing a green apron over brown clothes. Always smiling and welcoming."
             }
 
 
