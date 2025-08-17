@@ -100,6 +100,20 @@ const ComicView = () => {
     setShowShareMenu(false)
   }
 
+  // Helper function to format time display
+  const formatTime = (seconds) => {
+    if (!seconds) return 'N/A'
+    if (seconds >= 60) {
+      const minutes = Math.floor(seconds / 60)
+      const remainingSeconds = seconds % 60
+      if (remainingSeconds < 1) {
+        return `${minutes}m`
+      }
+      return `${minutes}m${Math.round(remainingSeconds)}s`
+    }
+    return `${seconds.toFixed(1)}s`
+  }
+
   if (comicLoading) {
     return (
       <div className="flex justify-center items-center min-h-96">
@@ -191,7 +205,7 @@ const ComicView = () => {
             <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-2xl px-4 py-2 border-2 border-orange-200">
               <Zap className="text-orange-500" size={16} />
               <span className="text-sm font-medium text-orange-700">
-                {comic.processing_time_seconds.toFixed(1)}s to create
+                {formatTime(comic.processing_time_seconds)} to create
               </span>
             </div>
           )}
@@ -291,112 +305,173 @@ const ComicView = () => {
       </div>
 
       {/* Video Section */}
-      <div className="card max-w-4xl mx-auto">
-        <div className="text-center space-y-6">
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <Video className="text-purple-500" size={32} />
-            <h2 className="text-3xl font-heading font-bold gradient-text">
-              AI Video Generation
-            </h2>
-          </div>
+      <div className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-3xl font-heading font-bold gradient-text mb-4">
+            🎬 Animated Version
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Watch your comic come to life with AI-generated video animation
+          </p>
+        </div>
 
-          {/* Video Player or Generation UI */}
-          {comic?.video_url && comic?.video_status === 'completed' ? (
-            <div className="space-y-4">
-              <div className="relative max-w-2xl mx-auto">
-                <video 
-                  controls 
-                  className="w-full rounded-2xl shadow-2xl"
-                  poster="/api/comics/${id}/image"
-                >
-                  <source src={comic.video_url} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-              <p className="text-gray-600">
-                Generated on {new Date(comic.video_generated_at).toLocaleDateString()} 
-                {comic.video_processing_time_seconds && 
-                  ` in ${comic.video_processing_time_seconds.toFixed(1)}s`
-                }
-              </p>
-            </div>
-          ) : videoGenerationMutation.isLoading ? (
-            <div className="space-y-4">
-              <div className="flex items-center justify-center space-x-3 p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl border-2 border-purple-200">
-                <Loader className="animate-spin text-purple-500" size={32} />
-                <div className="text-left">
-                  <h4 className="text-xl font-semibold text-purple-800">
-                    Creating Your Video...
-                  </h4>
-                  <p className="text-purple-600">
-                    Using AI magic to bring your comic to life! ✨
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-500">
-                Generating 8-second videos for each panel, then joining them together. This may take 3-5 minutes depending on the number of panels.
-              </p>
-            </div>
-          ) : videoStatus === 'failed' ? (
-            <div className="space-y-4">
-              <div className="flex items-center justify-center space-x-3 p-8 bg-red-50 rounded-2xl border-2 border-red-200">
-                <AlertCircle className="text-red-500" size={32} />
-                <div className="text-left">
-                  <h4 className="text-xl font-semibold text-red-800">
-                    Video Generation Failed
-                  </h4>
-                  <p className="text-red-600">
-                    Something went wrong. Please try again.
-                  </p>
-                </div>
-              </div>
-              <button 
-                onClick={() => videoGenerationMutation.mutate()}
-                disabled={videoGenerationMutation.isLoading}
-                className="btn-primary"
-              >
-                <Video size={20} className="mr-2" />
-                Try Again
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl border-2 border-purple-200">
-                <div className="space-y-4">
-                  <div className="w-24 h-24 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Play className="text-white" size={40} />
+        <div className="flex justify-center">
+          <div className="relative w-full max-w-4xl">
+            {/* Video Available */}
+            {(comic.video_status === 'completed' && comic.video_url) && (
+              <div className="bg-white rounded-2xl p-6 shadow-2xl border-2 border-gray-200">
+                <div className="relative">
+                  <video
+                    className="w-full h-auto rounded-xl shadow-lg bg-black"
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    playsInline
+                    poster={`/api/comics/${id}/image`}
+                    onError={(e) => {
+                      console.error('Video loading error:', e.target.error)
+                      toast.error('Failed to load video. Please try downloading it instead.')
+                    }}
+                    onLoadedMetadata={() => {
+                      console.log('Video metadata loaded successfully')
+                      toast.success('Video loaded successfully! 🎬')
+                    }}
+                    onLoadStart={() => {
+                      console.log('Video loading started')
+                    }}
+                  >
+                    <source 
+                      src={`/api/comics/${encodeURIComponent(id)}/video`} 
+                      type="video/mp4"
+                    />
+                    <div className="text-gray-500 text-center py-12 bg-gray-100 rounded-lg">
+                      <p className="mb-4">Your browser doesn't support video playback.</p>
+                      <a 
+                        href={`/api/comics/${encodeURIComponent(id)}/video`} 
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg inline-block hover:bg-blue-600 transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open Video in New Tab
+                      </a>
+                    </div>
+                  </video>
+
+                  {/* Video Controls Overlay */}
+                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2">
+                    <span className="text-white text-sm font-medium">🎬 AI Generated</span>
                   </div>
-                  <h4 className="text-2xl font-semibold text-purple-800">
-                    Transform Your Comic Into Video!
-                  </h4>
-                  <p className="text-purple-600 max-w-md mx-auto">
-                    Use AI to create an amazing video with 8 seconds per panel, then joined together into one complete story with Veo 3 technology.
-                  </p>
+                </div>
+
+                {/* Video Actions */}
+                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+                  <a
+                    href={`/api/comics/${encodeURIComponent(id)}/video`}
+                    download={`${comic.title.replace(/[^a-zA-Z0-9]/g, '_')}_video.mp4`}
+                    className="btn-primary px-6 py-3 group"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <Download size={20} className="group-hover:animate-bounce" />
+                      <span>Download Video</span>
+                    </div>
+                  </a>
+
+                  <a
+                    href={`/api/comics/${encodeURIComponent(id)}/video`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary px-6 py-3"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <Eye size={20} />
+                      <span>Open in New Tab</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div className="mt-4 text-center text-sm text-gray-600">
+                  🎬 Generated on {new Date(comic.video_generated_at || Date.now()).toLocaleDateString()}
+                  {comic.video_processing_time_seconds && (
+                    <span> • Processing time: {formatTime(comic.video_processing_time_seconds)}</span>
+                  )}
                 </div>
               </div>
+            )}
 
-              <button 
-                onClick={() => videoGenerationMutation.mutate()}
-                disabled={videoGenerationMutation.isLoading}
-                className="btn-primary px-8 py-4 text-lg group relative overflow-hidden"
-              >
-                <div className="flex items-center space-x-3">
-                  {videoGenerationMutation.isLoading ? (
-                    <Loader className="animate-spin" size={24} />
-                  ) : (
-                    <Video size={24} className="group-hover:scale-110 transition-transform duration-300" />
-                  )}
-                  <span>
-                    {videoGenerationMutation.isLoading ? 'Starting Generation...' : 'Generate Video'}
-                  </span>
+            {/* Video Generation in Progress */}
+            {(videoStatus === 'generating' || videoStatus === 'processing' || videoGenerationMutation.isPending) && (
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 text-center border-2 border-blue-200">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader className="text-blue-600 animate-spin" size={32} />
                 </div>
-              </button>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">
+                  Creating Your Video...
+                </h3>
+                <p className="text-blue-600 mb-4">
+                  Our AI is working its magic to animate your comic. This may take a few minutes.
+                </p>
+                <div className="w-full bg-blue-200 rounded-full h-2">
+                  <div className="bg-blue-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
+                </div>
+              </div>
+            )}
 
-              <p className="text-sm text-gray-500 max-w-md mx-auto">
-                Powered by Google Veo 3 AI. Video generation typically takes 1-3 minutes and creates high-quality animated content.
-              </p>
-            </div>
-          )}
+            {/* Video Generation Failed */}
+            {(videoStatus === 'failed') && (
+              <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 text-center border-2 border-red-200">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="text-red-600" size={32} />
+                </div>
+                <h3 className="text-xl font-semibold text-red-800 mb-2">
+                  Video Generation Failed
+                </h3>
+                <p className="text-red-600 mb-6">
+                  Something went wrong while creating your video. Please try again.
+                </p>
+                <button
+                  onClick={() => {
+                    setVideoStatus('generating')
+                    videoGenerationMutation.mutate()
+                  }}
+                  className="btn-secondary px-6 py-3"
+                  disabled={videoGenerationMutation.isPending}
+                >
+                  <div className="flex items-center space-x-2">
+                    <Play size={20} />
+                    <span>Try Again</span>
+                  </div>
+                </button>
+              </div>
+            )}
+
+            {/* Video Not Generated */}
+            {(!comic.video_url && !videoStatus) && (
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 text-center border-2 border-purple-200">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Video className="text-purple-600" size={32} />
+                </div>
+                <h3 className="text-xl font-semibold text-purple-800 mb-2">
+                  Generate Video Animation
+                </h3>
+                <p className="text-purple-600 mb-6 max-w-md mx-auto">
+                  Transform your comic into an animated video with smooth transitions and effects
+                </p>
+                <button
+                  onClick={() => {
+                    setVideoStatus('generating')
+                    videoGenerationMutation.mutate()
+                  }}
+                  disabled={videoGenerationMutation.isPending}
+                  className="btn-primary px-8 py-4 text-lg"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Play size={24} />
+                    <span>Generate Video</span>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -448,20 +523,54 @@ const ComicView = () => {
               Comic Stats
             </h3>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-2xl text-center">
-                <div className="text-3xl font-bold text-blue-600">
-                  {comic.panel_count || 1}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Comic Generation Stats */}
+              <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-2xl border border-blue-200">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-lg font-semibold text-blue-800">Comic Generation</div>
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                    <Zap className="text-white" size={16} />
+                  </div>
                 </div>
-                <div className="text-blue-800 font-medium">Panels</div>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-blue-600 text-sm">Panels</span>
+                    <span className="text-2xl font-bold text-blue-700">{comic.panel_count || 4}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-blue-600 text-sm">Time</span>
+                    <span className="text-xl font-bold text-blue-700">{formatTime(comic.processing_time_seconds)}</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-2xl text-center">
-                <div className="text-3xl font-bold text-purple-600">
-                  {comic.processing_time_seconds ? `${comic.processing_time_seconds.toFixed(1)}s` : 'N/A'}
+              {/* Video Stats - Only show if video exists or is being processed */}
+              {(comic.video_url || comic.video_status) && (
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-lg font-semibold text-green-800">Video Generation</div>
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                      <Video className="text-white" size={16} />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-green-600 text-sm">Status</span>
+                      <span className="text-xl">
+                        {comic.video_status === 'completed' ? '✅' : 
+                         comic.video_status === 'processing' ? '⏳' : 
+                         comic.video_status === 'failed' ? '❌' : '📹'}
+                      </span>
+                    </div>
+                    {comic.video_processing_time_seconds && (
+                      <div className="flex justify-between items-center">
+                        <span className="text-green-600 text-sm">Time</span>
+                        <span className="text-xl font-bold text-green-700">{formatTime(comic.video_processing_time_seconds)}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="text-purple-800 font-medium">Generated</div>
-              </div>
+              )}
             </div>
 
             {/* Call to Action */}

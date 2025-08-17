@@ -10,6 +10,7 @@ from typing import Optional, Dict, Any
 
 from google import genai
 from google.genai.types import GenerateVideosConfig, Image
+from ..core.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +21,16 @@ class VideoGenerationService:
     def __init__(self):
         """Initialize the video generation service"""
         self.client = genai.Client(vertexai=True,
-                                   project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                                   location='us-central1')
-        self.model_name = "veo-3.0-generate-001"
+                                   project=config.video.project_id,
+                                   location=config.video.location)
+        self.model_name = config.video.model_name
+
+        # Get GCS bucket from environment variable
+        self.gcs_bucket = os.getenv("GCS_BUCKET", "")
+        if self.gcs_bucket.startswith("gs://"):
+            self.gcs_bucket = self.gcs_bucket.replace("gs://", "").rstrip("/")
+
+        logger.info(f"Using GCS bucket: {self.gcs_bucket}")
 
     async def generate_video_from_script(self, comic_script: Dict[str, Any], comic_title: str, comic_id: str) -> Optional[str]:
         """
@@ -163,8 +171,8 @@ class VideoGenerationService:
                 image=Image.from_file(location=f"output/comics/{comic_id}/panel_{panel_number}_image.png", mime_type="image/png"),
                 prompt=prompt,
                 config=GenerateVideosConfig(
-                    aspect_ratio="16:9",
-                    output_gcs_uri=f"gs://gen-app-bucket/panel_{panel_number}",
+                    aspect_ratio=config.video.aspect_ratio,
+                    output_gcs_uri=f"gs://{self.gcs_bucket}/videos/{comic_id}/panel_{panel_number}",
                 )
             )
 
@@ -364,7 +372,7 @@ class VideoGenerationService:
             if result.returncode == 0:
                 # Upload final video to storage and return URL
                 # For now, return a placeholder URL
-                final_url = f"gs://gen-app-bucket/final/{comic_title.replace(' ', '_')}_complete.mp4"
+                final_url = f"{self.gcs_bucket}final/{comic_title.replace(' ', '_')}_complete.mp4"
                 logger.info("Successfully joined all panel videos")
                 return final_url
             else:

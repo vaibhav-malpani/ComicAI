@@ -186,6 +186,48 @@ async def get_comic_image(comic_id: str):
         logger.error(f"Failed to serve comic image {comic_id}: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to serve image")
 
+@app.get("/api/comics/{comic_id}/video")
+async def get_comic_video(comic_id: str):
+    """Serve comic video"""
+    try:
+        comics_metadata = comic_engine.list_generated_comics()
+        comic = next((c for c in comics_metadata if c.comic_id == comic_id), None)
+
+        if not comic:
+            raise HTTPException(status_code=404, detail="Comic not found")
+
+        # Check if video exists and is completed
+        if not comic.video_url or comic.video_status != "completed":
+            raise HTTPException(status_code=404, detail="Video not available")
+
+        video_path = Path(comic.video_url)
+        if not video_path.exists():
+            # Try alternative path in files dict
+            if "video" in comic.files:
+                video_path = Path(comic.files["video"])
+
+            if not video_path.exists():
+                logger.error(f"Video file not found for comic {comic_id}: {video_path}")
+                raise HTTPException(status_code=404, detail="Video file not found")
+
+        logger.info(f"Serving video file: {video_path}")
+
+        return FileResponse(
+            video_path, 
+            media_type="video/mp4",
+            filename=f"{comic_id}_video.mp4",
+            headers={
+                "Accept-Ranges": "bytes",
+                "Content-Type": "video/mp4"
+            }
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to serve comic video {comic_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to serve video")
+
 @app.get("/api/comics/{comic_id}/script")
 async def get_comic_script(comic_id: str):
     """Get comic script"""

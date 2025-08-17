@@ -26,10 +26,19 @@ class ImagenConfig:
     project_id: str
     location: str = "us-central1"
     model_name: str = "imagen-4.0-generate-preview-06-06"  # Primary Imagen 4 model
-    fallback_model: str = "imagen-3.0-generate-002"  # Stable fallback
     image_size: str = "1024x1024"
     aspect_ratio: str = "1:1"  # Square panels work best for comics
     guidance_scale: int = 100  # Imagen 4 guidance scale (0-100)
+
+
+@dataclass
+class VideoConfig:
+    """Configuration for video generation using Veo 3"""
+    project_id: str
+    location: str = "us-central1"
+    model_name: str = "veo-3.0-generate-001"
+    aspect_ratio: str = "16:9"
+    video_duration: int = 8  # seconds per panel
 
 
 @dataclass
@@ -70,6 +79,10 @@ class AppConfig:
         )
 
         self.imagen = ImagenConfig(
+            project_id=os.getenv("GOOGLE_CLOUD_PROJECT", ""),
+        )
+
+        self.video = VideoConfig(
             project_id=os.getenv("GOOGLE_CLOUD_PROJECT", ""),
         )
 
