@@ -1,0 +1,37 @@
+{
+  "comic_id": "the_journey_to_discover_ones_p_inspirational_20250817_204810",
+  "title": "The Unfolding Bloom",
+  "theme": "A young individual's journey of self-discovery and realizing their inherent potential.",
+  "generated_at": "2025-08-17T20:49:18.679606",
+  "panel_count": 4,
+  "generation_params": {
+    "topic": "The journey to discover one's power.",
+    "tone": "inspirational",
+    "target_audience": "general",
+    "visual_style": "classic comic book"
+  },
+  "files": {
+    "script": "output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\script.json",
+    "image": "output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\comic.png",
+    "video": "C:\\Users\\vaibhav.malpani\\Desktop\\talk\\My projects\\ComicAI\\backend\\output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\final_video.mp4"
+  },
+  "processing_time_seconds": 68.06470727920532,
+  "generation_started_at": "2025-08-17T20:48:10.583347",
+  "generation_completed_at": "2025-08-17T20:49:18.648054",
+  "video_url": "C:\\Users\\vaibhav.malpani\\Desktop\\talk\\My projects\\ComicAI\\backend\\output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\final_video.mp4",
+  "video_status": "completed",
+  "video_generated_at": "2025-08-17T21:13:56.913577",
+  "video_processing_time_seconds": 402.7193977832794,
+  "panel_video_uris": [
+    "gs://gen-app-bucket/videos/the_journey_to_discover_ones_p_inspirational_20250817_204810/panel_1/520813773183127400/sample_0.mp4",
+    "gs://gen-app-bucket/videos/the_journey_to_discover_ones_p_inspirational_20250817_204810/panel_2/2541145209506753101/sample_0.mp4",
+    "gs://gen-app-bucket/videos/the_journey_to_discover_ones_p_inspirational_20250817_204810/panel_3/17003402380768413029/sample_0.mp4",
+    "gs://gen-app-bucket/videos/the_journey_to_discover_ones_p_inspirational_20250817_204810/panel_4/9624738684402527668/sample_0.mp4"
+  ],
+  "panel_image_paths": [
+    "output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\panel_1_image.png",
+    "output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\panel_2_image.png",
+    "output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\panel_3_image.png",
+    "output\\comics\\the_journey_to_discover_ones_p_inspirational_20250817_204810\\panel_4_image.png"
+  ]
+}
