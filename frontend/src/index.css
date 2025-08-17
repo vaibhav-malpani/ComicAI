@@ -1,39 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Comic+Neue:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    font-family: 'Comic Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-900;
+    font-family: 'Inter', 'Comic Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
   }
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Comic Neue', 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+  }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl;
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 border-2 border-primary-600 hover:border-primary-700;
+    box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.3);
   }
 
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200;
+    @apply bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-6 rounded-xl transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95;
+  }
+
+  .btn-comic {
+    @apply bg-comic-yellow hover:bg-comic-orange text-black font-bold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-comic hover:shadow-comic-lg border-4 border-black;
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6;
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-6 border border-white/20 hover:border-white/40 transform hover:scale-[1.02];
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
+  }
+
+  .card-comic {
+    @apply bg-white rounded-2xl shadow-comic hover:shadow-comic-lg transition-all duration-300 p-6 border-4 border-black transform hover:scale-105 hover:rotate-1;
   }
 
   .comic-panel {
-    @apply border-4 border-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300;
+    @apply border-4 border-black rounded-2xl overflow-hidden shadow-comic transform hover:scale-105 transition-all duration-300 hover:rotate-1;
+    background: linear-gradient(45deg, #fff, #f8fafc);
   }
 
   .loading-spinner {
-    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500;
+    @apply animate-spin rounded-full h-8 w-8 border-4 border-primary-200 border-t-primary-500;
+  }
+
+  .hero-title {
+    font-family: 'Comic Neue', 'Inter', system-ui, sans-serif;
+    @apply font-black text-6xl md:text-8xl bg-gradient-to-r from-primary-600 via-secondary-500 to-accent-500 bg-clip-text text-transparent;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+  }
+
+  .feature-icon {
+    @apply w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg transform transition-all duration-300 hover:scale-110 hover:rotate-6;
+  }
+
+  .input-modern {
+    @apply w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-300 bg-white/70 backdrop-blur-sm;
+  }
+
+  .select-modern {
+    @apply w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-300 bg-white/70 backdrop-blur-sm appearance-none;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-primary-100 to-secondary-100 text-primary-800 border border-primary-200;
+  }
+
+  .badge-comic {
+    @apply inline-flex items-center px-3 py-2 rounded-2xl text-sm font-bold bg-comic-yellow text-black border-2 border-black shadow-comic;
+  }
+
+  .floating-element {
+    @apply animate-float;
+  }
+
+  .wiggle-element {
+    @apply hover:animate-wiggle;
+  }
+
+  .pulse-glow {
+    @apply animate-pulse-slow;
+    box-shadow: 0 0 30px rgba(96, 165, 250, 0.4);
+  }
+
+  .glass-effect {
+    @apply bg-white/20 backdrop-blur-lg border border-white/30 shadow-xl;
+  }
+
+  .comic-speech-bubble {
+    @apply bg-white border-4 border-black rounded-3xl p-4 relative shadow-comic;
+  }
+
+  .comic-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid black;
+  }
+
+  .comic-speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 13px solid white;
+    z-index: 1;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent;
+  }
+
+  .neon-border {
+    @apply border-2 border-primary-400 shadow-neon rounded-xl;
+  }
+
+  .comic-dot-pattern {
+    background-image: radial-gradient(circle, #000 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
   }
 }
 
@@ -42,37 +148,87 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .comic-bubble {
-    background: white;
-    border: 3px solid #000;
-    border-radius: 20px;
-    position: relative;
+  .text-shadow-lg {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  .comic-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #000;
+  .text-outline {
+    -webkit-text-stroke: 2px black;
+    text-stroke: 2px black;
   }
 
-  .comic-bubble::before {
-    content: '';
-    position: absolute;
-    bottom: -7px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 8px solid white;
-    z-index: 1;
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-3000 {
+    animation-delay: 3s;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme(colors.primary.400) theme(colors.gray.100);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-lg;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary-400 rounded-lg hover:bg-primary-500;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Dark mode support for future */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-support {
+    @apply bg-gray-900 text-white;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .card {
+    @apply border-2 border-black;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
