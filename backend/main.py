@@ -19,7 +19,7 @@ from app.comic_generator import ComicGenerationEngine
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Daily Comics Generator API", version="1.0.0")
+app = FastAPI(title="Comics Generator API", version="1.0.0")
 
 # Configure CORS
 app.add_middleware(
@@ -56,10 +56,6 @@ class ComicResponse(BaseModel):
 
 # In-memory storage for generation status
 generation_tasks: Dict[str, Dict] = {}
-
-@app.get("/")
-async def root():
-    return {"message": "Daily Comics Generator API", "version": "1.0.0"}
 
 @app.get("/api/health")
 async def health_check():
