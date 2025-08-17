@@ -1,0 +1,35 @@
+{
+  "comic_id": "detectives_solving_mysteries_d_humorous_20250817_192959",
+  "title": "The Great Halloween Pie Heist",
+  "theme": "Two detectives solve a silly Halloween mystery.",
+  "generated_at": "2025-08-17T19:31:03.647231",
+  "panel_count": 4,
+  "generation_params": {
+    "topic": "Detectives solving mysteries during Halloween ",
+    "tone": "humorous",
+    "target_audience": "kids",
+    "visual_style": "modern digital comic"
+  },
+  "files": {
+    "script": "output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\script.json",
+    "image": "output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\comic.png",
+    "video": "C:\\Users\\vaibhav.malpani\\Desktop\\talk\\My projects\\ComicAI\\backend\\output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\final_video.mp4"
+  },
+  "processing_time_seconds": 63.73262882232666,
+  "generation_started_at": "2025-08-17T19:29:59.885956",
+  "generation_completed_at": "2025-08-17T19:31:03.618585",
+  "video_url": "C:\\Users\\vaibhav.malpani\\Desktop\\talk\\My projects\\ComicAI\\backend\\output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\final_video.mp4",
+  "video_status": "completed",
+  "video_generated_at": "2025-08-17T19:44:06.278116",
+  "video_processing_time_seconds": 267.93622851371765,
+  "panel_video_uris": [
+    "gs://gen-app-bucket/videos/detectives_solving_mysteries_d_humorous_20250817_192959/panel_1/3409582868092069219/sample_0.mp4",
+    "gs://gen-app-bucket/videos/detectives_solving_mysteries_d_humorous_20250817_192959/panel_2/1657068394026295903/sample_0.mp4"
+  ],
+  "panel_image_paths": [
+    "output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\panel_1_image.png",
+    "output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\panel_2_image.png",
+    "output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\panel_3_image.png",
+    "output\\comics\\detectives_solving_mysteries_d_humorous_20250817_192959\\panel_4_image.png"
+  ]
+}

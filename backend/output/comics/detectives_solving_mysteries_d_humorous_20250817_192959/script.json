@@ -1,0 +1,125 @@
+{
+  "title": "The Great Halloween Pie Heist",
+  "theme": "Two detectives solve a silly Halloween mystery.",
+  "tone": "humorous",
+  "target_audience": "kids",
+  "character_descriptions": {
+    "Detective Pip": "A small, slender child, about 8 years old. Short, spiky bright orange hair. Large, inquisitive blue eyes. Wears a tan, slightly oversized trench coat that reaches their ankles, a dark brown fedora tilted jauntily, and oversized black detective shoes. Always carries a comically large silver magnifying glass. Has a small, determined smirk.",
+    "Officer Gus": "A tall, slightly portly adult, about 30s. Short, neatly combed brown hair. Friendly, round face with a slight stubble and warm brown eyes. Wears a standard dark blue police uniform (shirt, pants, black belt with silver buckle) with a bright orange pumpkin-shaped badge pinned to his chest. His police hat is slightly askew. He has a perpetually bewildered but kind expression.",
+    "Lily": "A young girl, about 7 years old, with pigtails tied with orange ribbons. She wears a sparkly witch costume with a pointed hat and a green dress. Her face is tear-streaked.",
+    "The Squirrel": "Character with consistent appearance throughout the comic"
+  },
+  "panels": [
+    {
+      "panel_number": 1,
+      "scene_description": "A vibrant Halloween-decorated porch at dusk. Jack-o'-lanterns glow, fake spiders hang, and a 'Welcome, Trick-or-Treaters!' sign is visible. Detective Pip stands confidently, holding a giant magnifying glass, next to Officer Gus, who looks slightly overwhelmed. Lily, in a witch costume, stands by a small, empty pie stand, crying.",
+      "characters": [
+        "Detective Pip",
+        "Officer Gus",
+        "Lily"
+      ],
+      "character_appearances": {
+        "Detective Pip": "Small child in oversized trench coat, fedora, holding magnifying glass.",
+        "Officer Gus": "Tall adult in blue police uniform, pumpkin badge, hat askew.",
+        "Lily": "Young girl in witch costume, tear-streaked face."
+      },
+      "dialogue": [
+        {
+          "character": "Lily",
+          "text": "Waaah! My pumpkin pie is GONE! It was right here!"
+        },
+        {
+          "character": "Detective Pip",
+          "text": "(Squinting dramatically) Fear not, young citizen! Detective Pip and Officer Gus are on the case of the missing dessert!"
+        },
+        {
+          "character": "Officer Gus",
+          "text": "(Muttering) Another 'mystery' involving candy..."
+        }
+      ],
+      "visual_focus": "The trio on the porch, emphasizing Pip's determined pose and Lily's distress.",
+      "art_direction": "Bright, inviting Halloween colors. Characters maintain consistent appearance. Pip's trench coat is slightly too big for them., maintain exact character appearances: Detective Pip - A small, slender child, about 8 years old. Short, spiky bright orange hair. Large, inquisitive blue eyes. Wears a tan, slightly oversized trench coat that reaches their ankles, a dark brown fedora tilted jauntily, and oversized black detective shoes. Always carries a comically large silver magnifying glass. Has a small, determined smirk."
+    },
+    {
+      "panel_number": 2,
+      "scene_description": "Detective Pip is on hands and knees, nose almost touching the ground, using the magnifying glass to examine a tiny trail of orange sprinkles leading away from the porch into the bushes. Officer Gus is standing awkwardly nearby, looking at the sky, one foot accidentally squishing a decorative plastic spider.",
+      "characters": [
+        "Detective Pip",
+        "Officer Gus"
+      ],
+      "character_appearances": {
+        "Detective Pip": "Small child in oversized trench coat, fedora, holding magnifying glass, on all fours.",
+        "Officer Gus": "Tall adult in blue police uniform, pumpkin badge, hat askew, looking distracted."
+      },
+      "dialogue": [
+        {
+          "character": "Detective Pip",
+          "text": "Aha! Clue number one! A trail of pumpkin-flavored glitter! The culprit is clearly a master of disguise!"
+        },
+        {
+          "character": "Officer Gus",
+          "text": "(To himself) Are those... sprinkles? Did I step on a spider?"
+        }
+      ],
+      "visual_focus": "Pip intensely examining the ground, the sprinkle trail, and Gus's oblivious stance.",
+      "art_direction": "Close-up on the ground for Pip's investigation. Characters maintain consistent appearance. Gus's hat remains askew., maintain exact character appearances: Detective Pip - A small, slender child, about 8 years old. Short, spiky bright orange hair. Large, inquisitive blue eyes. Wears a tan, slightly oversized trench coat that reaches their ankles, a dark brown fedora tilted jauntily, and oversized black detective shoes. Always carries a comically large silver magnifying glass. Has a small, determined smirk."
+    },
+    {
+      "panel_number": 3,
+      "scene_description": "Detective Pip has followed the sprinkle trail directly to a large, leafy bush. They are peering into the bush with their magnifying glass, a look of shocked realization on their face. Officer Gus is peering over Pip's shoulder, looking confused but curious. Inside the bush, a fluffy, chubby squirrel is happily munching on a large piece of pumpkin pie, crumbs all over its face.",
+      "characters": [
+        "Detective Pip",
+        "Officer Gus"
+      ],
+      "character_appearances": {
+        "Detective Pip": "Small child in oversized trench coat, fedora, holding magnifying glass, shocked expression.",
+        "Officer Gus": "Tall adult in blue police uniform, pumpkin badge, hat askew, curious expression.",
+        "The Squirrel": "Fluffy, chubby squirrel with pie crumbs on its face."
+      },
+      "dialogue": [
+        {
+          "character": "Detective Pip",
+          "text": "(Gasps dramatically) The culprit! It was... a fluffy fiend!"
+        },
+        {
+          "character": "Officer Gus",
+          "text": "Oh. It's just a squirrel. A very happy squirrel."
+        }
+      ],
+      "visual_focus": "The reveal of the squirrel in the bush, with Pip's dramatic reaction.",
+      "art_direction": "Characters maintain consistent appearance. The squirrel should be comically cute and messy. Leaves of the bush are detailed., maintain exact character appearances: Detective Pip - A small, slender child, about 8 years old. Short, spiky bright orange hair. Large, inquisitive blue eyes. Wears a tan, slightly oversized trench coat that reaches their ankles, a dark brown fedora tilted jauntily, and oversized black detective shoes. Always carries a comically large silver magnifying glass. Has a small, determined smirk."
+    },
+    {
+      "panel_number": 4,
+      "scene_description": "Back on the porch. Detective Pip stands proudly with arms crossed, magnifying glass tucked under their arm, looking very pleased with themselves. Officer Gus is leaning against the porch railing, chuckling. Lily is now smiling, pointing at the bush where the squirrel is still happily eating the pie, a tiny smirk on its face. The sun is setting, casting long shadows.",
+      "characters": [
+        "Detective Pip",
+        "Officer Gus",
+        "Lily",
+        "The Squirrel"
+      ],
+      "character_appearances": {
+        "Detective Pip": "Small child in oversized trench coat, fedora, proud expression.",
+        "Officer Gus": "Tall adult in blue police uniform, pumpkin badge, hat askew, amused expression.",
+        "Lily": "Young girl in witch costume, smiling.",
+        "The Squirrel": "Fluffy, chubby squirrel, still eating pie."
+      },
+      "dialogue": [
+        {
+          "character": "Detective Pip",
+          "text": "Case closed! The Great Halloween Pie Heist was an inside job... by nature!"
+        },
+        {
+          "character": "Officer Gus",
+          "text": "Good work, Pip. Now, how about we get you some candy?"
+        },
+        {
+          "character": "Lily",
+          "text": "(Giggles) He looks so happy!"
+        }
+      ],
+      "visual_focus": "The triumphant Detective Pip and the overall happy resolution.",
+      "art_direction": "Warm sunset colors. Characters maintain consistent appearance and expressions. The squirrel is a small, humorous detail in the background., maintain exact character appearances: Detective Pip - A small, slender child, about 8 years old. Short, spiky bright orange hair. Large, inquisitive blue eyes. Wears a tan, slightly oversized trench coat that reaches their ankles, a dark brown fedora tilted jauntily, and oversized black detective shoes. Always carries a comically large silver magnifying glass. Has a small, determined smirk."
+    }
+  ]
+}
