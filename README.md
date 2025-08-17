@@ -124,13 +124,18 @@ Remember: every example started with a simple idea and a click of the "Generate 
 Before getting started, make sure you have:
 
 1. **Python 3.11 or higher** installed on your system
-2. **Google Cloud Project** with billing enabled
-3. **Google Cloud credentials** with access to:
+2. **FFmpeg** - Required for video processing and generation
+   - **Windows**: Download from [ffmpeg.org](https://ffmpeg.org/download.html#build-windows) or install via [Chocolatey](https://chocolatey.org/): `choco install ffmpeg`
+   - **macOS**: Install via [Homebrew](https://brew.sh/): `brew install ffmpeg`
+   - **Linux (Ubuntu/Debian)**: `sudo apt update && sudo apt install ffmpeg`
+   - **Linux (CentOS/RHEL)**: `sudo yum install ffmpeg` or `sudo dnf install ffmpeg`
+3. **Google Cloud Project** with billing enabled
+4. **Google Cloud credentials** with access to:
    - Gemini API
    - Vertex AI (for Imagen)
    - Veo 3 API (for video generation)
    - Google Cloud Storage (for video asset management)
-4. **Git** for cloning the repository
+5. **Git** for cloning the repository
 
 ## 🛠️ Installation
 
@@ -185,6 +190,9 @@ Before getting started, make sure you have:
    # Google Cloud Project Configuration
    GOOGLE_CLOUD_PROJECT=your_google_cloud_project_id
 
+   # Storage Configuration (Optional)
+   GCS_BUCKET_NAME=your_custom_bucket_name  # Auto-generated if not specified
+
    # Optional: Logging level
    LOG_LEVEL=INFO
    ```
@@ -197,6 +205,31 @@ Before getting started, make sure you have:
    ```bash
    gcloud auth application-default login
    ```
+
+## 💰 API Costs & Quotas
+
+**Important**: Video generation uses Google's premium AI services. Be aware of costs:
+
+> **⚠️ Pricing Disclaimer**: The costs and quotas mentioned below are estimates and may change frequently. For the most current and accurate pricing information, always refer to the official [Google Cloud Pricing](https://cloud.google.com/pricing) page and your specific service documentation:
+> - [Vertex AI Pricing](https://cloud.google.com/vertex-ai/pricing)
+> - [Gemini API Pricing](https://ai.google.dev/pricing)
+> - [Cloud Storage Pricing](https://cloud.google.com/storage/pricing)
+
+### Estimated Costs Per Generation
+- **Comic Generation**: ~$0.10-0.30 per comic (Gemini + Imagen)
+- **Video Generation**: ~$2.00-8.00 per video (Veo 3 pricing varies by duration/quality)
+- **Storage**: ~$0.02-0.10 per GB/month (Google Cloud Storage)
+
+### Quota Considerations
+- **Veo 3**: Limited requests per minute/day (varies by project tier)
+- **Imagen**: 100 requests per day (free tier), higher limits for paid accounts
+- **Gemini**: 60 requests per minute (free tier)
+
+**Recommendations**:
+- Start with comic generation to test functionality before enabling video
+- Monitor usage in [Google Cloud Console](https://console.cloud.google.com/billing)
+- Set up billing alerts to avoid unexpected charges
+- Consider batch processing for multiple videos
 
 ## ✨ Features
 
@@ -294,6 +327,28 @@ Before getting started, make sure you have:
 - **Experiment with Styles:** Try different visual styles like "watercolor", "manga", or "pixel art"
 - **Use the Gallery:** Browse your previously generated comics in the gallery section
 
+### Video Specifications & Formats
+
+#### Generated Video Details
+- **Format**: MP4 (H.264 codec)
+- **Resolution**: 1024x1024 pixels (optimized for social media)
+- **Frame Rate**: 24 FPS
+- **Duration**: 15-30 seconds (varies by panel count)
+- **Audio**: Currently not supported (visual-only)
+- **File Size**: Typically 10-30MB per video
+
+#### Supported Export Formats
+- **Video**: MP4 (default)
+- **Individual Panels**: PNG, JPEG
+- **Comic Strip**: PNG (high resolution)
+
+#### Video Generation Best Practices
+- **Panel Count**: 4-6 panels work best for video flow
+- **Character Detail**: Include specific character descriptions for consistency
+- **Scene Description**: Be detailed about settings and actions for better animation
+- **Narrative Flow**: Ensure logical progression between panels for smooth video transitions
+- **Duration Planning**: Each panel typically becomes 3-5 seconds of video content
+
 ## 🌟 Showcase: What You Can Create
 
 ### Educational Series
@@ -333,6 +388,31 @@ Create meaningful content in multiple formats:
 - **Character Consistency**: If characters appear different across panels, regenerate with more specific character descriptions
 - **Storage Space**: Video files are larger than images; ensure adequate local and cloud storage
 - **Browser Compatibility**: For best video playback, use Chrome or Firefox with hardware acceleration enabled
+
+### Video-Specific Troubleshooting
+
+#### Veo 3 API Issues
+- **"Veo 3 not available"**: Ensure your Google Cloud project has Veo 3 API enabled and billing configured
+- **Quota exceeded**: Check your Veo 3 quotas in Google Cloud Console and consider upgrading your plan
+- **Generation timeout**: Video processing can take 5-15 minutes; don't refresh the page during generation
+
+#### Video Quality Issues
+- **Low quality output**: Try regenerating with more detailed scene descriptions
+- **Inconsistent animation**: Ensure character descriptions are detailed and consistent across panels
+- **Audio sync issues**: Currently audio is not supported; videos are visual-only
+
+#### Performance Optimization
+- **Slow video generation**: 
+  - Ensure stable high-speed internet connection (minimum 50 Mbps recommended)
+  - Close unnecessary browser tabs and applications
+  - Use wired connection instead of WiFi when possible
+- **Large file sizes**: Videos are typically 10-30MB; ensure adequate storage space
+- **Memory issues**: Close other applications during video generation; 16GB+ RAM recommended
+
+#### FFmpeg Issues
+- **FFmpeg not found**: Verify FFmpeg is installed and added to your system PATH
+- **Codec errors**: Ensure you have the latest FFmpeg version with H.264 support
+- **Permission errors**: On Linux/macOS, you may need to run with appropriate permissions
 
 
 ## 🎭 The Magic Behind the Scenes
