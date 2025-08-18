@@ -34,13 +34,11 @@ Nature's most incredible journey told through inspiring visuals! This comic tran
 
 ### "The Journey to Discover One's Power" - The Unfolding Bloom
 **Tone:** Inspirational | **Audience:** General | **🆕 Now with Video!**
-![Self-Discovery Comic](backend/output/comics/the_journey_to_discover_ones_p_inspirational_20250817_204810/comic.png)
 
-**🎥 Watch the Video:**
+[![Watch The Unfolding Bloom Video](backend/output/comics/the_journey_to_discover_ones_p_inspirational_20250817_204810/comic.png)](https://github.com/vaibhav-malpani/ComicAI/raw/main/backend/output/comics/the_journey_to_discover_ones_p_inspirational_20250817_204810/final_video.mp4)
 
-[![Watch The Unfolding Bloom Video](https://img.shields.io/badge/▶️-Watch%20Video-red?style=for-the-badge)](https://github.com/vaibhav-malpani/ComicAI/raw/main/backend/output/comics/the_journey_to_discover_ones_p_inspirational_20250817_204810/final_video.mp4)
 
-*Click the button above to download and watch the video (MP4 format)*
+### *Click the image above to download and watch the video (MP4 format)*
 
 
 Experience the power of AI-generated video storytelling! This groundbreaking example showcases our new video generation feature, transforming a static comic about self-discovery into a dynamic, animated experience. Watch as Elara discovers her inner power through beautifully animated panels that bring the story to life with smooth transitions, character consistency, and cinematic flow.
